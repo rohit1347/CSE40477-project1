@@ -7,6 +7,7 @@
  */
 #include <cstring>
 #include <iostream>
+#include<set>
 using std::strcmp;
 using std::strncpy;
 
@@ -31,13 +32,16 @@ Project1::ProductRack::ProductRack(
 
 Project1::ProductRack::~ProductRack()
 {
+    std::set<Product*> deletedProducts;
     for (int i = 0; i < MAX_PRODUCTS; ++i)
     {
-        this->products[i] = 0;
-        delete this->products[i];
+        if (products[i] != nullptr && deletedProducts.find(products[i]) == deletedProducts.end())
+        {
+            delete products[i];
+            deletedProducts.insert(products[i]);
+        }
     }
-    // delete[] this->products;
-    this->productCount = 0;
+    productCount = 0;
 }
 
 bool Project1::ProductRack::isCompatibleProduct(const char *productName) const
