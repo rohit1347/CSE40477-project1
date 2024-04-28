@@ -27,7 +27,18 @@ Project1::VendingMachine::VendingMachine(
 
 Project1::VendingMachine::~VendingMachine()
 {
-    // TODO: Implement
+    for (int i = 0; i < NUM_PRODUCT_RACKS; ++i)
+    {
+        delete productRacks[i];
+    }
+    for (int i = 0; i < NUM_PRODUCT_RACKS; ++i)
+    {
+        delete productButtons[i];
+    }
+    for (int i = 0; i < numCoins; ++i)
+    {
+        delete coinBox[i];
+    }
 }
 
 bool Project1::VendingMachine::insertCoin(Coin *pCoin)
