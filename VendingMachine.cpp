@@ -17,6 +17,11 @@ Project1::VendingMachine::VendingMachine(
       numCoins(0),
       unspentMoneyCents(0)
 {
+    for(int i=0;i<NUM_PRODUCT_RACKS;++i)
+    {
+        this->productRacks[i]=new ProductRack(statusPanel,productNames[i],deliveryChute,productPrices[i]);
+        this->productButtons[i]=new ProductButton(*productRacks[i]);
+    }
     // TODO: Implement
 }
 
@@ -75,7 +80,6 @@ bool Project1::VendingMachine::addProduct(Product *pProduct)
 {
     for (int i = 0; i < NUM_PRODUCT_RACKS; ++i)
     {
-        std::cout<<this->productRacks[i]->isCompatibleProduct(pProduct->getName())<<std::endl;
         if (this->productRacks[i]->isCompatibleProduct(pProduct->getName()))
         {
             if (this->productRacks[i]->addProduct(pProduct))
@@ -90,13 +94,13 @@ bool Project1::VendingMachine::addProduct(Product *pProduct)
 unsigned
 Project1::VendingMachine::getProductCount(const char *productName) const
 {
-    // for (int i = 0; i < NUM_PRODUCT_RACKS; ++i)
-    // {
-    //     if (this->productRacks[i]->isCompatibleProduct(productName))
-    //     {
-    //         return this->productRacks[i]->getNumProductsInRack();
-    //     }
-    // }
+    for (int i = 0; i < NUM_PRODUCT_RACKS; ++i)
+    {
+        if (this->productRacks[i]->isCompatibleProduct(productName))
+        {
+            return this->productRacks[i]->getNumProductsInRack();
+        }
+    }
     return 0;
 }
 

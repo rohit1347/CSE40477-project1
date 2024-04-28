@@ -25,8 +25,8 @@ Project1::ProductRack::ProductRack(
     for (int i = 0; i < MAX_PRODUCTS; ++i)
     {
         this->products[i] = 0;
+        this->productCount = 0;
     }
-    // TODO: Implement
 }
 
 Project1::ProductRack::~ProductRack()
