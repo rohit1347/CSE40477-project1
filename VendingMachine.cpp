@@ -68,7 +68,6 @@ bool Project1::VendingMachine::pressButton(int button)
             return true;
         }
     }
-    // // TODO: Implement
     return false;
 }
 
@@ -87,7 +86,9 @@ bool Project1::VendingMachine::addProduct(Product *pProduct)
             if (this->productRacks[i]->addProduct(pProduct))
             {
                 return true;
-            }else{
+            }
+            else
+            {
                 return false;
             }
         }

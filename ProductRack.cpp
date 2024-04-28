@@ -122,5 +122,5 @@ unsigned
 Project1::ProductRack::getProductPriceCents() const
 {
     // TODO: Implement
-    return this->productCount * this->productPriceCents;
+    return this->productPriceCents;
 }
