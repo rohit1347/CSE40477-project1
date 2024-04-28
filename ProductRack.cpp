@@ -6,7 +6,7 @@
  * YOU MUST IMPLEMENT THE FUNCTIONS IN THIS FILE.
  */
 #include <cstring>
-#include<iostream>
+#include <iostream>
 using std::strcmp;
 using std::strncpy;
 
@@ -21,7 +21,7 @@ Project1::ProductRack::ProductRack(
       deliveryChute(deliveryChute),
       productPriceCents(productPriceCents)
 {
-    strncpy(this->allowedProductName, allowedProductName, Product::MAX_NAME_LENGTH-1);
+    strncpy(this->allowedProductName, allowedProductName, Product::MAX_NAME_LENGTH - 1);
     for (int i = 0; i < MAX_PRODUCTS; ++i)
     {
         this->products[i] = 0;
@@ -32,8 +32,8 @@ Project1::ProductRack::ProductRack(
 Project1::ProductRack::~ProductRack()
 {
     for (int i = 0; i < MAX_PRODUCTS; ++i)
-    {   
-        this->products[i]=0;
+    {
+        this->products[i] = 0;
         delete this->products[i];
     }
     // delete[] this->products;
@@ -42,8 +42,6 @@ Project1::ProductRack::~ProductRack()
 
 bool Project1::ProductRack::isCompatibleProduct(const char *productName) const
 {
-    // TODO: Implement
-
     if (!strcmp(allowedProductName, productName))
     {
         return true;
@@ -56,28 +54,12 @@ bool Project1::ProductRack::isCompatibleProduct(const char *productName) const
 
 bool Project1::ProductRack::isFull() const
 {
-    for(int i = 0; i < MAX_PRODUCTS; ++i)
-    {
-        if (this->products[i] == 0)
-        {
-            return false;
-        }
-    }
-    return true;
-    // return this->productCount == MAX_PRODUCTS;
+    return this->productCount == MAX_PRODUCTS;
 }
 
 bool Project1::ProductRack::isEmpty() const
 {
-    // TODO: Implement
-    for (int i = 0; i < MAX_PRODUCTS; ++i)
-    {
-        if (this->products[i] != 0)
-        {
-            return false;
-        }
-    }
-    return true;
+    return this->productCount == 0;
 }
 
 bool Project1::ProductRack::addProduct(Product *pProduct)
@@ -114,7 +96,7 @@ bool Project1::ProductRack::deliverProduct()
         this->statusPanel.displayMessage(StatusPanel::MESSAGECODE_SOLD_OUT);
         return false;
     }
-    
+
     else if (deliveryChute.insertProduct(products[0])) // Assuming FIFO delivery
     {
         // Shift all products down after delivery

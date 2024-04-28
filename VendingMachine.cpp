@@ -6,7 +6,7 @@
  * YOU MUST IMPLEMENT THE FUNCTIONS IN THIS FILE.
  */
 #include "VendingMachine.h"
-#include<iostream>
+#include <iostream>
 
 Project1::VendingMachine::VendingMachine(
     ostream &statusPanelStream,
@@ -17,10 +17,10 @@ Project1::VendingMachine::VendingMachine(
       numCoins(0),
       unspentMoneyCents(0)
 {
-    for(int i=0;i<NUM_PRODUCT_RACKS;++i)
+    for (int i = 0; i < NUM_PRODUCT_RACKS; ++i)
     {
-        this->productRacks[i]=new ProductRack(statusPanel,productNames[i],deliveryChute,productPrices[i]);
-        this->productButtons[i]=new ProductButton(*productRacks[i]);
+        this->productRacks[i] = new ProductRack(statusPanel, productNames[i], deliveryChute, productPrices[i]);
+        this->productButtons[i] = new ProductButton(*productRacks[i]);
     }
     // TODO: Implement
 }
@@ -62,9 +62,11 @@ bool Project1::VendingMachine::pressButton(int button)
     }
     else
     {
-        this->productButtons[button]->press();
-        this->unspentMoneyCents -= productRacks[button]->getProductPriceCents();
-        return true;
+        if (this->productButtons[button]->press())
+        {
+            this->unspentMoneyCents -= productRacks[button]->getProductPriceCents();
+            return true;
+        }
     }
     // // TODO: Implement
     return false;
@@ -85,9 +87,12 @@ bool Project1::VendingMachine::addProduct(Product *pProduct)
             if (this->productRacks[i]->addProduct(pProduct))
             {
                 return true;
+            }else{
+                return false;
             }
         }
     }
+    this->statusPanel.displayMessage(StatusPanel::MESSAGECODE_NO_RACK_FOR_PRODUCT);
     return false;
 }
 
